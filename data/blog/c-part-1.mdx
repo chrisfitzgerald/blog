@@ -1,0 +1,388 @@
+---
+title: C# Part 1
+date: '2022-08-01'
+tags: ['Self Study','Csharp','Programming']
+draft: false
+summary: My notes while studing Microsofts C# Tutorials.
+images: []
+layout: PostLayout
+canonicalUrl: csharppart1
+---
+```csharp
+Console.WriteLine("Hello World!"); 
+```
+
+`Console` is a *Class*. Methods live inside of of Classes. A class is simply a container for methods. Developers typically keep related methods together in a single class.
+
+`WriteLine()` is a *method*. Each method has one job and can by identified by a set of parenthesis which are use to pass an input parameter. Not all methods require inputs. The parenthesis are known as the *method invocation operator*. 
+
+The period `.` used to separate the Class and Method is called a *method access operator*. It is how you “navigate” from a class to one of it’s methods. 
+
+The semi-colon `;` is the *end of statement operator*. A statement is a complete instruction in C#
+
+---
+
+# ****Store and retrieve data using literal and variable values****
+
+*Variable* - a data item that may change its value during its lifetime. 
+
+Variable names can contain alphanumeric characters and the underscore character. 
+
+Before you can use a variable, you have to declare it and also select a data type for the kind of data you want to store. 
+
+```csharp
+// Data Types 
+char userOption; 
+int gameScore = 100; //100
+decimal particlesPerMillion = 1.55m; //1.55
+bool processedCustomer; // true or false
+```
+
+```csharp
+string firstName; // Create string variable and name it
+firstName = "Chris"; // Assign a value to the variable
+Console.WriteLine(firstName); // Write the contents of the variable to the console.
+
+string firstName = "Chris"; //Create and assign data to a variable in one line.
+Console.WriteLine(firstName); //write to console
+```
+
+Implicitly type local variable is create with the `var` keyword. The `var` keyword is dependent on the value you use to initialize the variable. 
+
+- The `var` keyword tells the compiler to infer the data type of the variable based on the value it is initialized to.
+- You'll likely see the `var` keyword as you read other people's code; however, you should use the data type when possible.
+
+# ****Perform basic string formatting in C#****
+
+An *escape character sequence* ****is a special instruction to the runtime that you want to insert a special character that will affect the output of your string.
+
+`\n` will create a new line.
+
+`\t` will create a tab. 
+
+Display file path for use of backslash:
+
+```csharp
+Console.WriteLine("c:\\source\\repos");
+```
+
+---
+
+*Verbatim String Literal*
+
+A verbatim string literal will keep all whitespace and characters without the need to escape the backslash. To create a verbatim string, use the `@` directive before the literal string.
+
+```csharp
+Console.WriteLine(@"c:\source\repos");
+```
+
+---
+
+*Unicode! “こんにちは World!”*
+
+Use the `\u` plus a four-character code to represent Unicode characters (UTF-16) in a string.
+
+```csharp
+// Kon'nichiwa World
+Console.WriteLine("\u3053\u3093\u306B\u3061\u306F World!");
+
+//Output: こんにちは World!
+```
+
+---
+
+*String Concatenation*
+
+String concatenation is combining two or more values into a new value. The second value is appended to the end of the first value, and so on.
+
+```csharp
+string firstName = "Bob";
+string message = "Hello " + firstName;
+Console.WriteLine(message);
+
+//Output: Hello Bob
+```
+
+---
+
+*String Interpolation*
+
+String interpolation combines multiple values into a single literal string by using a "template" and one or more *interpolation expressions*. An **interpolation expression**
+is a variable surrounded by an opening and closing curly brace symbol `{ }`. The literal string becomes a template when it's prefixed by the `$`character.
+
+```csharp
+string firstName = "Bob";
+string greeting = "Hello";
+Console.WriteLine($"{greeting} {firstName}!");
+```
+
+---
+
+*Using Verbatim literals and string interpolation*
+
+You can use both the verbatim literal prefix symbol `@`and the string interpolation `$` symbol together.
+
+```csharp
+string projectName = "First-Project";
+Console.WriteLine($@"C:\Output\{projectName}\Data");
+
+//Output: C:\Output\First-Project\Data
+```
+
+# ****Write code to perform addition, subtraction, multiplication, and division with ints.****
+
+- `+` is the addition operator
+- `-` is the subtraction operator
+- `*` is the multiplication operator
+- `/` is the division operator (remainders are truncated if datatype is int)
+
+```csharp
+//The quotient (left of the assignment operator) must be of type decimal 
+//and either the dividend or divisor must be of type decimal (or both)
+decimal decimalQuotient = 7 / 5.0m;
+decimal decimalQuotient = 7.0m / 5.0m;
+```
+
+---
+
+How to perform a data type case from `int` to `decimal`
+
+```csharp
+int first = 7;
+int second = 5;
+decimal quotient = (decimal)first / (decimal)second;
+Console.WriteLine(quotient);
+```
+
+The remainder operator `%` tells you the remainder of `int` division.
+
+```csharp
+Console.WriteLine("Modulus of 200 / 5 : " + (200 % 5));
+Console.WriteLine("Modulus of 7 / 5 : " + (7 % 5));
+
+/*
+Output:
+Modulus of 200 / 5 : 0 //dividend is divisible by the divisor
+Modulus of 7 / 5 : 2
+*/
+```
+
+# Order of Operations
+
+1. **P**arentheses (whatever is inside the parenthesis is performed first)
+2. **E**xponents (While there's no exponent operator in C#, you can use the `System.Math.Pow()`
+ method, which is available from the .NET Class Library.)
+3. **M**ultiplication and **D**ivision (from left to right)
+4. **A**ddition and **S**ubtraction (from left to right)
+
+---
+
+# ****Increment and Decrement Values****
+
+`+=`operator adds and assigns the value on the right of the operator to the value on the left of the operator
+
+`++` operator increments the value of the variable by 1.
+
+Operators like `+=`, `-=`, `*=`, `++`, and `--` are known as *compound assignment* operators because they compound some operation in addition to assigning the result to the variable. The `+=` operator is specifically termed the *addition assignment* operator.
+
+# Challenge
+
+Write code that will use a formula to convert a temperature from degrees Fahrenheit to Celsius. You'll print the result in a formatted message to the user. To convert temperatures in degrees Fahrenheit to Celsius, first subtract 32, then multiply by five ninths (5 / 9).
+
+```csharp
+//Begin with this line of code:
+int fahrenheit = 94;
+
+//When you're finished, the message should resemble the following output:
+/*
+Output:
+The temperature is 34.444444444444444444444444447 Celsius.
+*/
+```
+
+# Solution:
+
+```csharp
+int fahrenheit = 94; //initial variable as int
+
+// order of ops to subtract first and then multiply by five ninths. decimal int to keep remainder
+decimal celsius = (fahrenheit - 32) * (5 / 9m); 
+
+Console.WriteLine("The temperature is " + celsius + " Celsius.");
+```
+
+# ****How to call methods in the .NET Class Library****
+
+- To call methods of a class in the .NET Class Library, you use the format `ClassName.MethodName()`, where the `.` symbol is the member access operator to access a method defined on the class, and the `()` symbols are the method invocation operators.
+- When calling a stateless method, you don't need to create a new instance of its class first.
+- When calling a stateful method, you need to create an instance of the class, and access the method on the object.
+- Use the `new` operator to create a new instance of a class.
+- An instance of a class is called an *object*.
+
+---
+
+# The `If` Statement
+
+The `if` statement is made up of three parts:
+
+- The `if` keyword.
+- A *Boolean expression* between parentheses `()`.
+- A *code block* defined by curly braces `{ }`.
+
+```csharp
+Random dice = new Random();
+
+int roll1 = dice.Next(1,7);
+int roll2 = dice.Next(1,7);
+int roll3 = dice.Next(1,7);
+
+int total = roll1 + roll2 + roll3;
+
+Console.WriteLine($"Dice roll: {roll1} + {roll2} + {roll3} = {total}");
+
+if (total > 14)
+{
+    Console.WriteLine("You win!");
+}
+
+if (total < 15)
+{
+    Console.WriteLine("Sorry, you lose.");
+
+/*
+Output:
+Dice roll: 5 + 5 + 6 = 16
+You win!
+*/
+```
+
+# Booleans
+
+- `==`, the "equals" operator, to test for equality.
+- `>`, the "greater than" operator, to test that the value on the left is greater than the value on the right.
+- `<`, the "less than" operator, to test that the value on the left is less than the value on the right.
+- `>=`, the "greater than or equal to" operator.
+- `<=`, the "less than or equal to" operator.
+- The logical AND operator `&&` aggregates two expressions so that both subexpressions must be true in order for the entire expression to be true.
+- The logical OR operator `||` aggregates two expressions so that if either subexpression is true, the entire expression is true.
+
+# Dice Game
+
+```csharp
+Random dice = new Random();
+
+int roll1 = dice.Next(1,7);
+int roll2 = dice.Next(1,7);
+int roll3 = dice.Next(1,7);
+
+int total = roll1 + roll2 + roll3;
+
+Console.WriteLine($"Dice roll: {roll1} + {roll2} + {roll3} = {total}");
+
+if ((roll1 == roll2) || (roll2 == roll3) || (roll1 == roll3))
+{
+    if ((roll1 == roll2) && (roll2 == roll3))
+    {
+        Console.WriteLine("You rolled doubles! +6 bonus to total!");
+        total += 6;
+    }
+    else
+    {
+        Console.WriteLine("You rolled doubles! +2 bonus to total!");
+        total += 2;
+    }
+}
+
+if (total >= 15)
+{
+    Console.WriteLine("You win!");
+}
+else
+{
+    Console.WriteLine("Sorry, you lose.");
+}
+```
+
+# Arrays
+
+An array is a special type of variable that can hold multiple values of the same data type.
+
+The `new` operator creates a new instance of an array in the computer's memory that can hold three string values.
+
+```csharp
+string[] fraudulentOrderIDs = new string[3];
+
+fraudulentOrderIDs[0] = "A123";
+fraudulentOrderIDs[1] = "B456";
+fraudulentOrderIDs[2] = "C789";
+fraudulentOrderIDs[3] = "D000"; //note this array should only have 3 indexes
+
+/*
+Output:
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IndexOutOfRangeException: Index was outside the bounds of the array.
+
+*/
+```
+
+You can either assign values to an array individually as seen above or while initializing of the array. 
+
+```csharp
+string[] fraudulentOrderIDs = { "A123", "B456", "C789" };
+```
+
+# ForEach Statements
+
+- Use the `foreach` statement to iterate through each element in an array, executing the associated code block once for each element in the array.
+- The `foreach` statement sets the value of the current element in the array to a temporary variable, which you can use in the body of the code block.
+- Use the `++` increment operator to add 1 to the current value of a variable.
+
+```csharp
+int[] inventory = {200, 450, 700, 175, 250 };
+int sum = 0;
+int bin = 0;
+foreach (int items in inventory)
+{
+    sum += items;
+    bin++;
+    Console.WriteLine($"Bin {bin} = {items} items (Running total: {sum})");
+}
+
+Console.WriteLine($"We have {sum} items in inventory.");
+
+/*
+Output:
+Bin 1 = 200 items (Running total: 200)
+Bin 2 = 450 items (Running total: 650)
+Bin 3 = 700 items (Running total: 1350)
+Bin 4 = 175 items (Running total: 1525)
+Bin 5 = 250 items (Running total: 1775)
+We have 1775 items in inventory.
+*/
+```
+
+# Challenge
+
+Previously, we set out to write code that would store Order IDs belonging to potentially fraudulent orders. Our hope is to find fraudulent orders as early as possible and flag them for deeper analysis.
+
+Our team found a pattern. Orders that start with the letter "B" encounter fraud 25 times the normal rate. We will write new code that will output the Order ID of new orders where the Order ID starts with the letter "B". This will be used by our fraud team to investigate further
+
+## Solution
+
+```csharp
+string[] orderIDs = {"B123", "C234", "A345", "C15", "B177", "G3003", "C235", "B179"};
+
+foreach (string orderID in orderIDs)
+{
+    if (orderID.StartsWith("B"))
+    {
+        Console.WriteLine(orderID);
+    }
+}
+
+/*
+Output:
+B123
+B177
+B179
+*/
+```
