@@ -16,16 +16,8 @@ import { usePostHog } from 'next-use-posthog'
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
-function MyApp({ Component, pageProps }) {  
-  // NOTE: If set as an environment variable be sure to prefix with `NEXT_PUBLIC_`
-  // For more info see https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser
-  
-  usePostHog('phc_ghIstnxf9s65JRzSJibDo20tWmA4wnKqptjgRJKPfm3', { api_host: 'https://app.posthog.com' })
-
-  return <Component {...pageProps} />
-}
-
 export default function App({ Component, pageProps }) {
+  usePostHog('phc_ghIstnxf9s65JRzSJibDo20tWmA4wnKqptjgRJKPfm3', { api_host: 'https://app.posthog.com' })
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>
