@@ -17,7 +17,6 @@ const isDevelopment = process.env.NODE_ENV === 'development'
 const isSocket = process.env.SOCKET
 
 export default function App({ Component, pageProps }) {
-  usePostHog('phc_ghIstnxf9s65JRzSJibDo20tWmA4wnKqptjgRJKPfm3', { api_host: 'https://app.posthog.com' })
   return (
     <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
       <Head>
