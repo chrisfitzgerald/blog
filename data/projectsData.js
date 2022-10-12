@@ -12,5 +12,4 @@ const projectsData = [
     href: 'https://github.com/chrisfitzgerald/StringReaderIO',
   },
 ]
-
 export default projectsData
