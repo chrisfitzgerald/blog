@@ -7,7 +7,7 @@ const projectsData = [
   },
   {
     title: 'StringReaderIO',
-    description: `Command Line prompt written in C# to experiment with user input and string manipulation`,
+    description: `Command Line prompt written in C# to experiment with user input and string manipulation.`,
     imgSrc: '/static/images/stringreaderio.jpg',
     href: 'https://github.com/chrisfitzgerald/StringReaderIO',
   },
