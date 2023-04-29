@@ -14,7 +14,7 @@ canonicalUrl: https://www.cfitz.dev/blog/chatgpt-and-apple-health-data
 
 Apple Health is a great app that allows users to keep track of their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities when it comes to the data. For instance, the Heart Rate data mainly shows your heart rate range as a single bar. I am no data scientist, but this doesn’t seem very representative. This is where pulling your data and doing some Python scripting comes in handy. In this blog post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to create some code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/). 
 
-![Heart Rate.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3da83d2e-942d-434c-9a45-806473220d8b/Heart_Rate.png)
+![apple Heart Rate](/static/images/heart_rate_apple.png)
 
 ## Exporting Apple Health Data
 
@@ -66,7 +66,7 @@ plt.show()
 
 When this code is ran we will create a pretty vanilla looking line graph like the one below:
 
-![2023-04-28 23_38_10-Figure 1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea72fcc0-ff8d-43c0-8027-af8dcbf3b70d/2023-04-28_23_38_10-Figure_1.png)
+![Default Chart](/static/images/chart_boring.png)
 
 Okay so yea.. we are getting somewhere. With literally no experience with .xml formatted data or matplotlib, this was a pretty awesome result to see after one prompt in chatGPT (a total of 10 minutes). I feel like I have super powers.
 
@@ -167,9 +167,9 @@ tk.mainloop()
 
 When ran, we now have a bit more easier to look at chart with not only a line graph that plots my data, but also the ability to switch to scatter plots which I believe best visualize data such as this. I have also dug into matplotlib’s documentation and found a built in gradient called ‘cool’ which define in the line `cmap = plt.get_cmap('cool')` to show the Y-axis with heightening intensity as my heart rate increases during exercise. 
 
-![2023-04-28 23_47_34-Heart Rate Data.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/646d8154-ca85-4832-9fe3-0b23e4f9fc76/2023-04-28_23_47_34-Heart_Rate_Data.png)
+![Okay Chart](/static/images/chart_okay.png)
 
-![2023-04-28 23_47_50-Heart Rate Data.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1da87b7f-88b5-48d5-bb71-f7240d76b8f1/2023-04-28_23_47_50-Heart_Rate_Data.png)
+![Cool Chart](/static/images/chart_cool.png)
 
 ## What the Health?
 
