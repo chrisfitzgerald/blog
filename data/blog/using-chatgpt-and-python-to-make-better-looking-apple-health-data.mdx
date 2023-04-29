@@ -1,0 +1,176 @@
+---
+title: Using ChatGPT and Python to Make Better Looking Apple Health Data
+date: '2023-04-29'
+tags: ['data science','health','data','python','chatGPT','OpenAI','Pandas','XML']
+draft: false
+summary: In my recent experience using the Apple Health app, I found that while it was useful for tracking my physical activity and heart rate, the app's visualization capabilities for heart rate data left something to be desired. Specifically, the Heart Rate data was displayed as a single bar representing the heart rate range, which I didn't find very representative.
+images: []
+layout: PostLayout
+canonicalUrl: https://www.cfitz.dev/blog/chatgpt-and-apple-health-data
+---
+# Using ChatGPT and Python to make Better Looking Apple Health Data
+
+## Turning blah into hoorah
+
+Apple Health is a great app that allows users to keep track of their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities when it comes to the data. For instance, the Heart Rate data mainly shows your heart rate range as a single bar. I am no data scientist, but this doesn’t seem very representative. This is where pulling your data and doing some Python scripting comes in handy. In this blog post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to create some code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/). 
+
+![Heart Rate.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3da83d2e-942d-434c-9a45-806473220d8b/Heart_Rate.png)
+
+## Exporting Apple Health Data
+
+The first step in this process is to export your Apple Health data. This can be done by following these steps:
+
+1. Open the Health app on your iPhone.
+2. Click on your profile picture in the top-right corner.
+3. Scroll down and click on "Export Health Data."
+4. Enter your password and click on "Export."
+5. The data will be exported as a zip file.
+
+Once you have exported your data, you will need to extract it from the zip file. The data is stored in an XML file, which contains all of the health-related data that the app has collected. IF you are following along, you’ll want to place the “export.xml” file in the same folder as the python file we will be creating in subsequent steps. 
+
+## Using ChatGPT to Script out Extract Data
+
+The [`xml.etree.ElementTree`](https://docs.python.org/3/library/xml.etree.elementtree.html#module-xml.etree.ElementTree) module is a simple and powerful tool for parsing XML data.  ChatGPT decides to import pandas to create a DataFrame and matplotlib to create our charts from this data:
+
+```python
+import xml.etree.ElementTree as ET
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Open the XML file and parse its contents
+xml_file = 'export.xml'
+root = ET.parse(xml_file).getroot()
+
+# Extract the data we're interested in (in this case, heart rate data)
+data = []
+for record in root.iter('Record'):
+    if record.get('type') == 'HKQuantityTypeIdentifierHeartRate':
+        data.append({
+            'date': record.get('startDate'),
+            'heart_rate': float(record.get('value')),
+        })
+
+# Convert the data to a DataFrame
+df = pd.DataFrame(data)
+
+# Convert the date column to a datetime format and set it as the index
+df['date'] = pd.to_datetime(df['date'])
+df.set_index('date', inplace=True)
+
+# Plot the data
+df.plot()
+
+# Display the chart
+plt.show()
+```
+
+When this code is ran we will create a pretty vanilla looking line graph like the one below:
+
+![2023-04-28 23_38_10-Figure 1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ea72fcc0-ff8d-43c0-8027-af8dcbf3b70d/2023-04-28_23_38_10-Figure_1.png)
+
+Okay so yea.. we are getting somewhere. With literally no experience with .xml formatted data or matplotlib, this was a pretty awesome result to see after one prompt in chatGPT (a total of 10 minutes). I feel like I have super powers.
+
+## Using More MatPLotlib features
+
+I wanted to take this a step further and prompted chatGPT to create a toggle feature where we can switch between a line graph and scatter points. I have also asked to ensure we are including some options to modify colors and formatting to allow us to get a bit more creative with the data. Here’s what it gave me:
+
+```python
+import xml.etree.ElementTree as ET
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import tkinter as tk
+
+# Open the XML file and parse its contents
+xml_file = 'export.xml'
+root = ET.parse(xml_file).getroot()
+
+# Extract the data we're interested in (in this case, heart rate data)
+data = []
+for record in root.iter('Record'):
+    if record.get('type') == 'HKQuantityTypeIdentifierHeartRate':
+        timestamp = pd.to_datetime(record.get('startDate'))
+        data.append({
+            'date': timestamp,
+            'heart_rate': float(record.get('value')),
+        })
+
+# Convert the data to a DataFrame
+df = pd.DataFrame(data)
+
+# Set the date column as the index
+df.set_index('date', inplace=True)
+
+# Create a new figure and plot the data as a line graph
+fig, ax = plt.subplots(figsize=(10, 6))
+line, = ax.plot(df.index, df['heart_rate'], '-')
+ax.set_ylabel('Heart rate (bpm)')
+
+# Set the background color of the figure and axes
+fig.set_facecolor('#404040')
+ax.set_facecolor('#404040')
+
+# Set the color of the tick labels
+ax.tick_params(axis='both', colors='white')
+
+# Set the color of the x and y axis labels
+ax.set_xlabel('Date', color='white')
+ax.set_ylabel('Heart Rate (bpm)', color='white')
+
+# Set the color of the title
+ax.set_title('Heart Rate over Time', color='white')
+
+# Set the background color of the plot area
+ax.set_xlim(df.index.min(), df.index.max())
+ax.set_ylim(df['heart_rate'].min() - 10, df['heart_rate'].max() + 10)
+ax.patch.set_alpha(0)
+ax.grid(color='white', alpha=0.2)
+
+# Initialize a global variable for the scatter plot points
+points = None
+
+# Define a function to update the plot to show the data as scatter points
+def show_points():
+    global points
+    line.set_visible(False)
+    cmap = plt.get_cmap('cool')
+    norm = plt.Normalize(df['heart_rate'].min(), df['heart_rate'].max())
+    colors = cmap(norm(df['heart_rate']))
+    points = ax.scatter(df.index, df['heart_rate'], s=20, c=colors, alpha=0.8)
+    canvas.draw()
+
+# Define a function to update the plot to show the data as a line graph
+def show_line():
+    global points
+    if points is not None:
+        points.set_visible(False)
+    line.set_visible(True)
+    cmap = plt.get_cmap('cool')
+    canvas.draw()
+
+# Create a GUI window and add a button to switch between the line graph and scatter plot
+root = tk.Tk()
+root.title('Heart Rate Data')
+canvas = FigureCanvasTkAgg(fig, master=root)
+canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+toolbar = tk.Frame(master=root)
+toolbar.pack(side=tk.BOTTOM, pady=5)
+button = tk.Button(master=toolbar, text='Show points', command=show_points)
+button.pack(side=tk.LEFT, padx=5)
+button = tk.Button(master=toolbar, text='Show line', command=show_line)
+button.pack(side=tk.LEFT, padx=5)
+
+# Start the GUI loop
+tk.mainloop()
+
+```
+
+When ran, we now have a bit more easier to look at chart with not only a line graph that plots my data, but also the ability to switch to scatter plots which I believe best visualize data such as this. I have also dug into matplotlib’s documentation and found a built in gradient called ‘cool’ which define in the line `cmap = plt.get_cmap('cool')` to show the Y-axis with heightening intensity as my heart rate increases during exercise. 
+
+![2023-04-28 23_47_34-Heart Rate Data.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/646d8154-ca85-4832-9fe3-0b23e4f9fc76/2023-04-28_23_47_34-Heart_Rate_Data.png)
+
+![2023-04-28 23_47_50-Heart Rate Data.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1da87b7f-88b5-48d5-bb71-f7240d76b8f1/2023-04-28_23_47_50-Heart_Rate_Data.png)
+
+## What the Health?
+
+In this blog post, we have seen how to export Apple Health data and utilize ChatGPT to help create some code extract the data from the XML data file. We have familiarized ourselves with a couple of Python’s most powerful libraries such as Matplotlib and Pandas to create visualizations of this data. My next steps with this would be to overlay more data points from my health data the show when I am actively working out or asleep. I would also like to make the charts a bit more interactive so we can change the date range on the x-axis.  Hopefully you enjoy reading about this project of mine and now have some fundamentals to build something of your own.
