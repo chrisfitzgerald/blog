@@ -10,7 +10,7 @@ const siteMetadata = {
   siteLogo: '/static/images/ie.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'address@yoursite.com',
+  email: 'hi@cfitz.dev',
   github: 'https://github.com',
   //twitter: 'https://twitter.com/Twitter',
   youtube: 'https://www.youtube.com/user/Sweeee3eeeeeeeeet/videos',
