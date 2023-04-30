@@ -10,7 +10,7 @@ canonicalUrl: https://www.cfitz.dev/blog/chatgpt-and-apple-health-data
 ---
 # Turning blah into hoorah
 
-Apple Health is a great app that allows users to track their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities. For instance, the Heart Rate data mainly shows your heart rate on a single range bar. I am no data scientist, but I think the visualization capabilities for the heart rate data left something to be desired. Fortunately, Apple is kind enough to share this data, allowing us to get creative. In this post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to create fast code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/).
+Apple Health is a great app that allows users to track their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities. For instance, the Heart Rate data mainly shows your heart rate on a single range bar. I am no data scientist, but I think the visualization capabilities for the heart rate data left something to be desired. Fortunately, Apple is kind enough to share this data, allowing us to get creative. In this post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to quickly create code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/).
 
 ![apple Heart Rate](/static/images/heart_rate_apple.png)
 
@@ -24,11 +24,11 @@ The first step in this process is to export your Apple Health data. This can be 
 4. Enter your password and click on "Export."
 5. The data will be exported as a zip file.
 
-Once you have exported your data, you will need to extract it from the zip file. The data is stored in an XML file, which contains all of the health-related data that the app has collected. IF you are following along, you’ll want to place the “export.xml” file in the same folder as the python file we will be creating in subsequent steps. I would also call out that my Apple Health data has only been recording for roughly two weeks. I assume this file could be quite large for others where adding a condition to pull only recent dates would be beneficial. 
+Once you have exported your data, you will need to extract it from the zip file. The data is stored in an XML file, which contains all of the health-related data that the app has collected. If you are following along, you’ll want to place the “export.xml” file in the same folder as the Python file we will be creating in subsequent steps. I would also call out that my Apple Health data has only been recording for roughly two weeks. I assume this file could be quite large for others where adding a condition to pull only recent dates would be beneficial. 
 
 ## Using ChatGPT to Generate a Script that Extracts Heart Rate Data
 
-I am learning to code and I like messing around with stuff that is already built (boilerplate, cloning repos, etc..). So using a AI chatbot to jumpstart an idea I have off the ground is thrilling for me. It not only fills out the blank page, but it exposes me to new libraries that I may not of otherwise been exposed to. Here is what ChatGPT told me to do when I prompted it: We import the xml.etree.ElementTree module is a simple and powerful tool for parsing XML data.  ChatGPT decides to import pandas to create a DataFrame and matplotlib to create our charts from this data:
+I am a forever learner and enjoy messing around with projects that are already working (boilerplate, cloning repos, etc..). So using an AI chatbot to jumpstart an idea I have off the ground is thrilling for me. It not only fills out the blank page, but it exposes me to new techniques and libraries that I may not have otherwise been exposed to. Here is what ChatGPT told me to do when I prompted it: We import the xml.etree.ElementTree module which appears to be a powerful tool for parsing XML data.  ChatGPT decides to import Pandas to create a DataFrame and matplotlib to chart our extracted data:
 ```python
 import xml.etree.ElementTree as ET
 import pandas as pd
@@ -65,7 +65,7 @@ When this code is ran we will create a pretty vanilla looking line graph like th
 
 ![Default Chart](/static/images/chart_boring.png)
 
-Okay so yea.. we are getting somewhere. With literally no experience with .xml formatted data or matplotlib, this was a pretty awesome result to see after one prompt in chatGPT (a total of 10 minutes). I feel like I have super powers.
+Okay, nice.. we are getting somewhere. With literally no experience using .xml formatted metadata or matplotlib, this was a pretty awesome result to see after one prompt in chatGPT (a total of 10 minutes). I feel like I have super powers.
 
 ## Using More MatPLotlib features
 
