@@ -4,13 +4,13 @@ date: '2023-04-29'
 tags: ['data science','health','data','python','chatGPT','OpenAI','Pandas','XML']
 draft: false
 summary: In my recent experience using the Apple Health app, I found that while it was useful for tracking my physical activity and heart rate, the app's visualization capabilities for heart rate data left something to be desired. Specifically, the Heart Rate data was displayed as a single bar representing the heart rate range, which I didn't find very representative.
-images: []
+images: ['/static/images/chart_cool.png']
 layout: PostLayout
 canonicalUrl: https://www.cfitz.dev/blog/chatgpt-and-apple-health-data
 ---
 # Turning blah into hoorah
 
-Apple Health is a great app that allows users to keep track of their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities when it comes to the data. For instance, the Heart Rate data mainly shows your heart rate on a single range bar. I am no data scientist, but I feel like we could do better. This is where pulling your data and doing some Python scripting comes in handy. In this blog post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to create some code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/).
+Apple Health is a great app that allows users to track their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities. For instance, the Heart Rate data mainly shows your heart rate on a single range bar. I am no data scientist, but I think the visualization capabilities for the heart rate data left something to be desired. Fortunately, Apple is kind enough to share this data, allowing us to get creative. In this post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to create fast code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/).
 
 ![apple Heart Rate](/static/images/heart_rate_apple.png)
 
