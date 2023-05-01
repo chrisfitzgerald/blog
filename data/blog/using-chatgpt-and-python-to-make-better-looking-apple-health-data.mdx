@@ -10,7 +10,7 @@ canonicalUrl: https://www.cfitz.dev/blog/chatgpt-and-apple-health-data
 ---
 # Turning blah into hoorah
 
-Apple Health is a great app that allows users to track their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities. For instance, the Heart Rate data mainly shows your heart rate on a single range bar. I am no data scientist, but I think the visualization capabilities for the heart rate data left something to be desired. Fortunately, Apple is kind enough to share this data, allowing us to get creative. In this post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to quickly create code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/).
+Apple Health is a great app that allows users to track their physical activity, heart rate, and other health-related data. However, the app has limited visualization capabilities. For instance, the Heart Rate data mainly shows your heart rate on a single range bar. I am no data scientist, but I think the visualization capabilities for the heart rate data are honestly boring. Fortunately, Apple is kind enough to share this data, allowing us to get creative. In this post, I will share my experience using Python and OpenAI’s [ChatGPT](https://openai.com/) to quickly create code that extracts my Heart Rate data and plots it using the Python libraries [Pandas](https://pandas.pydata.org/) and [matplotlib](https://matplotlib.org/).
 
 ![apple Heart Rate](/static/images/heart_rate_apple.png)
 
@@ -61,7 +61,7 @@ df.plot()
 plt.show()
 ```
 
-When this code is ran we will create a pretty vanilla looking line graph like the one below:
+When this code is run we will create a pretty vanilla looking line graph like the one below:
 
 ![Default Chart](/static/images/chart_boring.png)
 
@@ -162,7 +162,7 @@ tk.mainloop()
 
 ```
 
-When ran, we now have an easier to look at chart with not only a line graph that plots my data, but also the ability to switch to scatter plots which I believe works well to express what this data represents. I have also dug into matplotlib’s documentation and found a built in gradient called ‘cool’ which we can define in the line `cmap = plt.get_cmap('cool')` to show the Y-axis with heightening intensity as my heart rate increases during exercise. 
+When run, we now have an easier to look at chart with not only a line graph that plots my data, but also the ability to switch to scatter plots which I believe works well to express what this data represents. I have also dug into matplotlib’s documentation and found a built-in gradient called ‘cool’ which we can define in the line `cmap = plt.get_cmap('cool')` to show the Y-axis with heightening intensity as my heart rate increases during exercise. 
 
 ![Okay Chart](/static/images/chart_okay.png)
 
