@@ -4,7 +4,7 @@ date: "2023-09-25"
 tags: ['python','data science','python','Pandas']
 draft: false
 summary: This blog post serves as a brief guide to understanding Decision Trees in Python, covering everything from the algorithm's basics to its practical applications and caveats. Tailored for both aspiring data scientists and arbor enthusiasts, the post includes hands-on coding examples and offers insights into the algorithm's strengths and weaknesses.
-images: ['/static/images/iris_decision_tree.png']
+images: ['/static/images/iris_decision_tree.png', '/static/images/iris_tree.png']
 layout: PostLayout
 canonicalUrl: https://www.cfitz.dev/blog/chatgpt-and-apple-health-data
 ---
@@ -89,7 +89,17 @@ Evaluating a model is like a health check-up for our Decision Tree. We'll use ac
 ```python
 from sklearn.metrics import accuracy_score
 accuracy = accuracy_score(y_test, predictions)
+print("Model Accuracy: {:.2f}%".format(accuracy * 100))
 ```
+```python
+# Visualize the Decision Tree
+plt.figure(figsize=(20, 10))
+tree.plot_tree(clf, filled=True, feature_names=iris.feature_names, class_names=iris.target_names, rounded=True)
+plt.title("Visualizing the Decision Tree")
+plt.show()
+```
+
+![iris tree](/static/images/iris_tree.png)
 
 ---
 
@@ -97,9 +107,9 @@ accuracy = accuracy_score(y_test, predictions)
 
 ### Where to Plant Your Trees
 
-- Text categorization
-- Customer retention analysis
-- Anomaly detection
+- Text categorization. Decision Trees can help identify which words or phrases are most indicative of a particular category. Determining whether a given text expresses positive, negative, or neutral sentiment.
+- Customer retention analysis. To identify the likelihood of customers continuing to use a product or service. We can  segment the customer base into various groups based on features like usage patterns, demographics, etc.
+- Anomaly detection.  This involves identifying abnormal or rare items, events, or observations which raise suspicions. 
 
 ### Beware the Thorns
 
@@ -114,4 +124,4 @@ There you have it—a comprehensive, yet approachable guide to Decision Trees in
 
 ---
 
-Until next time, keep your curiosity piqued and your code running smoothly. Cheers! 🌳
+go hug a tree 🌳
