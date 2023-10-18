@@ -1,0 +1,158 @@
+---
+title: Pandas DataFrame Attributes: A Comprehensive Guide with Examples
+date: '2023-18-10'
+tags: ['Self Study','Python','Programming', 'Pandas', 'Data Structures']
+draft: false
+summary: Writing down a few of the DataFrame attributes that I found interesting while studying.
+images: []
+layout: PostLayout
+canonicalUrl: dataframe-attributes
+---
+# Pandas DataFrame Attributes: A Comprehensive Guide with Examples
+
+Pandas is a popular Python library for data manipulation and analysis. One of its key data structures is the DataFrame, which you can think of as an in-memory 2D table (like a spreadsheet), with labeled axes (rows and columns). DataFrames are incredibly versatile and efficient for data tasks, making them a staple in data science and software engineering projects.
+
+For our examples, let's assume we're dealing with a dataset of Magic: The Gathering cards. Each card has various attributes such as `Name`, `Type`, `Rarity`, and `ManaCost`.
+
+```python
+import pandas as pd
+
+# Sample Magic the Gathering DataFrame
+data = {
+    'Name': ['Black Lotus', 'Time Walk', 'Ancestral Recall'],
+    'Type': ['Artifact', 'Sorcery', 'Instant'],
+    'Rarity': ['Rare', 'Rare', 'Rare'],
+    'ManaCost': [0, 2, 1]
+}
+
+mtg_df = pd.DataFrame(data)
+```
+
+Now, let's explore the various DataFrame attributes.
+
+## Common DataFrame Attributes
+
+### 1. `df.shape`
+
+Returns a tuple representing the dimensions of the DataFrame.
+
+```python
+print(mtg_df.shape)  # Output: (3, 4)
+```
+
+### 2. `df.index`
+
+The index (row labels) of the DataFrame.
+
+```python
+print(mtg_df.index)  # Output: RangeIndex(start=0, stop=3, step=1)
+```
+
+### 3. `df.columns`
+
+The column labels of the DataFrame.
+
+```python
+print(mtg_df.columns)  # Output: Index(['Name', 'Type', 'Rarity', 'ManaCost'], dtype='object')
+```
+
+### 4. `df.dtypes`
+
+Data types of each column.
+
+```python
+print(mtg_df.dtypes)
+# Output:
+# Name        object
+# Type        object
+# Rarity      object
+# ManaCost     int64
+# dtype: object
+```
+
+### 5. `df.size`
+
+Total number of elements.
+
+```python
+print(mtg_df.size)  # Output: 12
+```
+
+### 6. `df.values`
+
+Numpy representation of the DataFrame.
+
+```python
+print(mtg_df.values)
+# Output:
+# [['Black Lotus' 'Artifact' 'Rare' 0]
+#  ['Time Walk' 'Sorcery' 'Rare' 2]
+#  ['Ancestral Recall' 'Instant' 'Rare' 1]]
+```
+
+### 7. `df.T`
+
+Transposes rows and columns.
+
+```python
+print(mtg_df.T)
+# Output:
+#             0          1                2
+# Name     Black Lotus  Time Walk  Ancestral Recall
+# Type      Artifact    Sorcery          Instant
+# Rarity       Rare       Rare             Rare
+# ManaCost        0          2                1
+```
+
+### 8. `df.empty`
+
+Boolean value indicating whether the DataFrame is empty.
+
+```python
+print(mtg_df.empty)  # Output: False
+```
+
+### 9. `df.ndim`
+
+Number of dimensions. For a DataFrame, this will always be 2.
+
+```python
+print(mtg_df.ndim)  # Output: 2
+```
+
+### 10. `df.memory_usage()`
+
+Memory usage of each column.
+
+```python
+print(mtg_df.memory_usage())
+# Output:
+# Index       128
+# Name         24
+# Type         24
+# Rarity       24
+# ManaCost     24
+# dtype: int64
+```
+
+### 11. `df.at`, `df.iat`
+
+Used for quick access to a single element.
+
+```python
+print(mtg_df.at[0, 'Name'])  # Output: 'Black Lotus'
+print(mtg_df.iat[0, 0])  # Output: 'Black Lotus'
+```
+
+### 12. `df.axes`
+
+Returns a list representing the axes of the DataFrame.
+
+```python
+print(mtg_df.axes)
+# Output: [RangeIndex(start=0, stop=3, step=1), Index(['Name', 'Type', 'Rarity', 'ManaCost'], dtype='object')]
+```
+
+These are some of the most commonly used DataFrame attributes. Pandas offers a plethora of functions and attributes to manipulate and explore data, making it an invaluable tool for anyone diving into data science or software engineering projects involving data manipulation and analysis.
+
+Happy Coding!
