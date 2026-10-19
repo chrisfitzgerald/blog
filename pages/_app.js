@@ -4,6 +4,7 @@ import 'katex/dist/katex.css'
 import { Analytics } from '@vercel/analytics/react'
 
 import '@fontsource/inter/variable-full.css'
+import '@fontsource-variable/newsreader/wght.css'
 
 import { ThemeProvider } from 'next-themes'
 import Head from 'next/head'
