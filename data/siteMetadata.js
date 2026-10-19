@@ -27,7 +27,7 @@ const siteMetadata = {
     posthogAnalyticsId: 'phc_ghIstnxf9s65JRzSJibDo20tWmA4wnKqptjgRJKPfm3', // posthog.init e.g. phc_5yXvArzvRdqtZIsHkEm3Fkkhm3d0bEYUXCaFISzqPSQ
   },
   newsletter: {
-    // supports mailchimp, buttondown, convertkit, klaviyo, revue, emailoctopus
+    // supports mailchimp, buttondown, convertkit, revue, emailoctopus
     // Please add your .env file and modify it according to your selection
     provider: 'buttondown',
   },
