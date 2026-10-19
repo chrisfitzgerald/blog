@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
 import Link from 'next/link'
 
 const CustomLink = ({ href, ...rest }) => {
@@ -6,17 +5,15 @@ const CustomLink = ({ href, ...rest }) => {
   const isAnchorLink = href && href.startsWith('#')
 
   if (isInternalLink) {
-    return (
-      <Link href={href}>
-        <a {...rest} />
-      </Link>
-    )
+    return <Link href={href} {...rest} />
   }
 
   if (isAnchorLink) {
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a href={href} {...rest} />
   }
 
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
   return <a target="_blank" rel="noopener noreferrer" href={href} {...rest} />
 }
 
